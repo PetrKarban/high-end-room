@@ -1,11 +1,42 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
+import Base from "../layouts/Base.astro";
+import ProductCard from "../components/ProductCard.astro";
+import { getCollection } from "astro:content";
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const products = await getCollection("products");
+const sorted = products.sort((a, b) => (b.data.date ?? "") > (a.data.date ?? "") ? 1 : -1);
 ---
+<Base title="High End Room" description="Exkluzivní výběr luxusního oblečení a doplňků.">
+  <!-- HERO -->
+  <section
+    class="relative flex min-h-[calc(100vh-74px)] flex-col items-center justify-center bg-cover bg-center bg-no-repeat px-4 text-center"
+    style={`background-image:
+      linear-gradient(rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.8) 50%, rgb(0,0,0) 100%),
+      url('/image/pozadi.svg');
+    `}
+  >
+    <h1 class="text-4xl font-black tracking-tighter sm:text-5xl md:text-6xl">High End Room</h1>
+    <p class="mx-auto mt-4 max-w-2xl text-base text-gray-300 sm:text-lg">
+      Exkluzivní výběr luxusního oblečení a doplňků. Kontaktujte nás pro více informací o produktech a prodeji.
+    </p>
+    <a href="#catalog" class="mt-8 inline-block rounded-full bg-white px-8 py-3 text-lg font-bold text-black transition-transform duration-300 hover:scale-105">
+      Prohlédnout katalog
+    </a>
+  </section>
 
-<Layout>
-	<Welcome />
-</Layout>
+  <!-- KATALOG -->
+  <section id="catalog" class="mx-auto max-w-7xl px-4 py-14">
+    <div class="mb-6 flex items-end justify-between">
+      <div>
+        <h2 class="text-2xl font-bold">Katalog</h2>
+        <p class="text-sm text-gray-400">Aktuálně {sorted.length} položek</p>
+      </div>
+    </div>
+
+    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+      {sorted.map((entry) => (
+        <ProductCard product={{ id: entry.slug, ...entry.data }} />
+      ))}
+    </div>
+  </section>
+</Base>

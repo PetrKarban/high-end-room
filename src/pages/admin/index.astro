@@ -1,0 +1,42 @@
+---
+/* Samostatná admin stránka – bez layoutu */
+---
+<!doctype html>
+<html lang="cs">
+  <head>
+    <meta charset="utf-8" />
+    <title>Content Manager</title>
+    <meta name="robots" content="noindex" />
+
+    <!-- ruční inicializace Decapu -->
+    <script>
+      // typový hack: nevadí v runtime, uklidní TS
+      (window as any).CMS_MANUAL_INIT = true;
+    </script>
+
+    <!-- Decap CMS UI -->
+    <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+  </head>
+  <body>
+    <script>
+      function initCMS() {
+        // decap je globální (načte se skriptem výše)
+        const cms = (window as any).CMS;
+        if (!cms) {
+          console.error("Decap CMS script not loaded yet.");
+          return;
+        }
+        cms.init({
+          // relativně k /admin → tedy /admin/config.yml
+          configPath: "config.yml",
+        });
+      }
+
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", initCMS);
+      } else {
+        initCMS();
+      }
+    </script>
+  </body>
+</html>

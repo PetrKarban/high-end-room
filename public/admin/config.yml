@@ -1,0 +1,30 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "public/products"
+public_folder: "/products"
+
+collections:
+  - name: "products"
+    label: "Produkty"
+    label_singular: "Produkt"
+    folder: "src/content/products"
+    create: true
+    slug: "{{slug}}"
+    extension: "md"
+    format: "frontmatter"
+    fields:
+      - { name: "title", label: "Název", widget: "string" }
+      - { name: "brand", label: "Značka", widget: "string" }
+      - { name: "size", label: "Velikost", widget: "string", required: false }
+      - { name: "condition", label: "Stav", widget: "string", required: false }
+      - { name: "price", label: "Cena (Kč)", widget: "number", required: false, value_type: "int" }
+      - { name: "status", label: "Stav", widget: "select", options: ["available","sold"], default: "available" }
+      - label: "Obrázky"
+        name: "images"
+        widget: "list"
+        field: { name: "image", label: "Obrázek", widget: "image" }
+      - { name: "tags", label: "Tagy", widget: "list", required: false }
+      - { name: "date", label: "Datum", widget: "datetime", required: false, format: "YYYY-MM-DD" }
+      - { name: "body", label: "Popis", widget: "markdown", required: false }

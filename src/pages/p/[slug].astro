@@ -1,0 +1,70 @@
+---
+import Base from "../../layouts/Base.astro";
+import { getEntry, getCollection } from "astro:content";
+
+// 1) vygenerovat statické cesty pro všechny produkty
+export async function getStaticPaths() {
+  const products = await getCollection("products");
+  return products.map((p) => ({ params: { slug: p.slug } }));
+}
+
+// 2) načtení konkrétního produktu + příprava renderu markdownu
+const { slug } = Astro.params;
+if (!slug) throw new Error("Missing slug");
+
+const entry = await getEntry("products", slug);
+if (!entry) throw new Error(`Product not found: ${slug}`);
+
+const data = entry.data;
+const pageTitle = `${data.brand} – ${data.title}`;
+
+// Tady je ta změna: připravíme Content přes render()
+const { Content } = await entry.render();
+---
+<Base title={pageTitle} description={data.condition ?? ""}>
+  <section class="mx-auto max-w-5xl px-4 py-10">
+    <a href="/" class="text-sm text-gray-400 hover:text-white">← Zpět na katalog</a>
+
+    <div class="mt-6 grid gap-8 lg:grid-cols-2">
+      <!-- galerie -->
+      <div class="space-y-3">
+        {data.images.map((src) => (
+          <img
+            src={src}
+            alt={`${data.brand} ${data.title}`}
+            class="w-full rounded-xl border border-white/10"
+            loading="lazy"
+          />
+        ))}
+      </div>
+
+      <!-- info -->
+      <div class="space-y-4">
+        <h1 class="text-3xl font-extrabold">{data.brand}</h1>
+        <h2 class="text-xl text-gray-200">{data.title}</h2>
+
+        <p class="text-gray-300">
+          {data.size && <>Velikost: <b>{data.size}</b><br /></>}
+          {data.condition && <>Stav: <b>{data.condition}</b><br /></>}
+          {data.price && <>Cena: <b>{data.price.toLocaleString("cs-CZ")} Kč</b></>}
+        </p>
+
+        {/* 3) správné vykreslení markdownu z body */}
+        <div class="prose prose-invert max-w-none">
+          <Content />
+        </div>
+
+        <div class="flex gap-3 pt-2">
+          <a href="https://instagram.com/username" target="_blank" rel="noopener"
+             class="inline-flex items-center justify-center rounded-full border border-white/20 px-5 py-2 font-medium hover:bg-white/10">
+            Instagram
+          </a>
+          <a href="https://t.me/username" target="_blank" rel="noopener"
+             class="inline-flex items-center justify-center rounded-full bg-white px-5 py-2 font-bold text-black hover:opacity-90">
+            Telegram
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>

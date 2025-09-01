@@ -1,0 +1,53 @@
+---
+type CardProduct = {
+  id: string; // slug
+  title: string;
+  brand: string;
+  size?: string;
+  condition?: string;
+  price?: number;
+  status?: "available" | "sold";
+  images: string[];
+};
+const { product } = Astro.props as { product: CardProduct };
+const sold = product.status === "sold";
+---
+<article class="relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 shadow-lg transition hover:scale-[1.01]">
+  <a href={`/p/${product.id}`} class="block">
+    <div class="aspect-[4/5] w-full overflow-hidden bg-black/40">
+      <img
+        src={product.images[0]}
+        alt={`${product.brand} ${product.title}`}
+        class="h-full w-full object-cover"
+        loading="lazy"
+      />
+    </div>
+
+    <div class="space-y-1 p-4">
+      <div class="flex items-center justify-between gap-2">
+        <h3 class="text-base font-semibold">{product.brand}</h3>
+        {product.price && <p class="text-sm text-gray-300">{product.price.toLocaleString("cs-CZ")} Kč</p>}
+      </div>
+      <p class="text-sm text-gray-300">{product.title}</p>
+      <p class="text-xs text-gray-400">
+        {product.size && <>Velikost {product.size} · </>}
+        {product.condition ?? ""}
+      </p>
+    </div>
+  </a>
+
+  {sold && (
+    <span class="absolute left-2 top-2 rounded-full bg-red-600 px-3 py-1 text-xs font-bold">SOLD</span>
+  )}
+
+  <div class="flex items-center gap-2 p-4 pt-0">
+    <a href="https://instagram.com/username" target="_blank" rel="noopener"
+       class="inline-flex flex-1 items-center justify-center rounded-full border border-white/20 px-3 py-2 text-sm font-medium hover:bg-white/10">
+      Instagram
+    </a>
+    <a href="https://t.me/username" target="_blank" rel="noopener"
+       class="inline-flex flex-1 items-center justify-center rounded-full bg-white px-3 py-2 text-sm font-bold text-black hover:opacity-90">
+      Telegram
+    </a>
+  </div>
+</article>

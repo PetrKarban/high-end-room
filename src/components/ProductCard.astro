@@ -1,8 +1,9 @@
 ---
 type CardProduct = {
-  id: string; // slug
+  id: string;
   title: string;
   brand: string;
+  category: "obuv" | "obleceni" | "batohy" | "doplnky";
   size?: string;
   condition?: string;
   price?: number;
@@ -12,13 +13,18 @@ type CardProduct = {
 const { product } = Astro.props as { product: CardProduct };
 const sold = product.status === "sold";
 ---
-<article class="relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 shadow-lg transition hover:scale-[1.01]">
+<article
+  data-item
+  data-category={product.category}
+  data-status={product.status ?? "available"}
+  class="relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 shadow-lg transition hover:scale-[1.01]"
+>
   <a href={`/p/${product.id}`} class="block">
     <div class="aspect-[4/5] w-full overflow-hidden bg-black/40">
       <img
         src={product.images[0]}
         alt={`${product.brand} ${product.title}`}
-        class="h-full w-full object-cover"
+        class={`h-full w-full object-cover ${sold ? "opacity-70" : ""}`}
         loading="lazy"
       />
     </div>

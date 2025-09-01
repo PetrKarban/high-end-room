@@ -1,6 +1,7 @@
 ---
 title: "Monogram Hoodie"
 brand: "Louis Vuitton"
+category: "obleceni"
 size: "M"
 condition: "9/10"
 price: 12500

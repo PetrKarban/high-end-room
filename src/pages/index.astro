@@ -24,19 +24,38 @@ const sorted = products.sort((a, b) => (b.data.date ?? "") > (a.data.date ?? "")
     </a>
   </section>
 
-  <!-- KATALOG -->
-  <section id="catalog" class="mx-auto max-w-7xl px-4 py-14">
-    <div class="mb-6 flex items-end justify-between">
+  <!-- FILTRY -->
+  <section id="catalog" class="mx-auto max-w-7xl px-4 py-10">
+    <div class="mb-6 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
       <div>
         <h2 class="text-2xl font-bold">Katalog</h2>
         <p class="text-sm text-gray-400">Aktuálně {sorted.length} položek</p>
       </div>
+
+      <div class="flex flex-wrap items-center gap-2">
+        <div class="flex flex-wrap gap-2 rounded-full bg-white/5 p-1">
+          <button data-filter="all" class="filter-btn rounded-full px-4 py-2 text-sm text-white/80 hover:text-white">Vše</button>
+          <button data-filter="obuv" class="filter-btn rounded-full px-4 py-2 text-sm text-white/80 hover:text-white">Obuv</button>
+          <button data-filter="obleceni" class="filter-btn rounded-full px-4 py-2 text-sm text-white/80 hover:text-white">Oblečení</button>
+          <button data-filter="batohy" class="filter-btn rounded-full px-4 py-2 text-sm text-white/80 hover:text-white">Batohy</button>
+          <button data-filter="doplnky" class="filter-btn rounded-full px-4 py-2 text-sm text-white/80 hover:text-white">Doplňky</button>
+        </div>
+
+        <label class="ml-2 inline-flex cursor-pointer items-center gap-2 rounded-full bg-white/5 px-4 py-2 text-sm">
+          <input id="onlyAvailable" type="checkbox" class="accent-white" />
+          Pouze skladem
+        </label>
+      </div>
     </div>
 
-    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+    <!-- GRID -->
+    <div data-grid class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
       {sorted.map((entry) => (
         <ProductCard product={{ id: entry.slug, ...entry.data }} />
       ))}
     </div>
   </section>
+
+  <script type="module" src="/src/scripts/filters.js"></script>
+
 </Base>

@@ -1,6 +1,8 @@
 ---
 import Base from "../layouts/Base.astro";
 import ProductCard from "../components/ProductCard.astro";
+import FiltersDesktop from "../components/FiltersDesktop.astro";
+import FiltersMobile from "../components/FiltersMobile.astro";
 import { getCollection } from "astro:content";
 
 const products = await getCollection("products");
@@ -24,7 +26,7 @@ const sorted = products.sort((a, b) => (b.data.date ?? "") > (a.data.date ?? "")
     </a>
   </section>
 
-  <!-- FILTRY -->
+  <!-- FILTRY + KATALOG -->
   <section id="catalog" class="mx-auto max-w-7xl px-4 py-10">
     <div class="mb-6 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
       <div>
@@ -32,23 +34,21 @@ const sorted = products.sort((a, b) => (b.data.date ?? "") > (a.data.date ?? "")
         <p class="text-sm text-gray-400">Aktuálně {sorted.length} položek</p>
       </div>
 
-      <div class="flex flex-wrap items-center gap-2">
-        <div class="flex flex-wrap gap-2 rounded-full bg-white/5 p-1">
-          <button data-filter="all" class="filter-btn rounded-full px-4 py-2 text-sm text-white/80 hover:text-white">Vše</button>
-          <button data-filter="obuv" class="filter-btn rounded-full px-4 py-2 text-sm text-white/80 hover:text-white">Obuv</button>
-          <button data-filter="obleceni" class="filter-btn rounded-full px-4 py-2 text-sm text-white/80 hover:text-white">Oblečení</button>
-          <button data-filter="batohy" class="filter-btn rounded-full px-4 py-2 text-sm text-white/80 hover:text-white">Batohy</button>
-          <button data-filter="doplnky" class="filter-btn rounded-full px-4 py-2 text-sm text-white/80 hover:text-white">Doplňky</button>
-        </div>
+      <div class="flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:items-center">
+        <!-- Desktop filtry (tlačítka) -->
+        <FiltersDesktop />
+        <!-- Mobilní filtry (select) -->
+        <FiltersMobile />
 
-        <label class="ml-2 inline-flex cursor-pointer items-center gap-2 rounded-full bg-white/5 px-4 py-2 text-sm">
+        <!-- Pouze skladem -->
+        <label class="inline-flex cursor-pointer items-center gap-2 rounded-full bg-white/5 px-4 py-2 text-sm">
           <input id="onlyAvailable" type="checkbox" class="accent-white" />
           Pouze skladem
         </label>
       </div>
     </div>
 
-    <!-- GRID -->
+    <!-- GRID PRODUKTŮ -->
     <div data-grid class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
       {sorted.map((entry) => (
         <ProductCard product={{ id: entry.slug, ...entry.data }} />
@@ -56,7 +56,8 @@ const sorted = products.sort((a, b) => (b.data.date ?? "") > (a.data.date ?? "")
     </div>
   </section>
 
+  <!-- Client script (filtrace – desktop tlačítka + mobilní select) -->
   <script type="module" src="/js/filters.js"></script>
-
-
 </Base>
+
+

@@ -1,0 +1,80 @@
+<div class="sm:hidden w-full">
+  <label class="mb-2 block text-sm font-medium text-white/80">Kategorie</label>
+
+  <!-- Wrapper s gradient bordrem -->
+  <div class="relative inline-block w-full">
+    <!-- Tlačítko (glass) -->
+    <button
+      id="mobileDropdownBtn"
+      type="button"
+      class="group relative flex w-full items-center justify-between rounded-2xl
+             bg-black/50 px-4 py-3 text-left text-sm text-white
+             ring-1 ring-white/10 hover:ring-white/20
+             backdrop-blur-md transition-shadow
+             shadow-[0_8px_30px_rgba(0,0,0,0.35)]"
+      aria-haspopup="listbox"
+      aria-expanded="false"
+    >
+      <span class="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2">
+        <!-- ikona „štítek“ -->
+        <svg class="h-4 w-4 text-white/60" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M20.59 13.41l-7.18 7.18a2 2 0 01-2.83 0l-7.07-7.07A2 2 0 013 12.17V6a2 2 0 012-2h6.17a2 2 0 011.41.59l7.18 7.18a2 2 0 010 2.83zM7.5 8A1.5 1.5 0 109 9.5 1.5 1.5 0 007.5 8z"/>
+        </svg>
+      </span>
+
+      <!-- aktuální volba (s paddingem kvůli ikoně) -->
+      <span id="mobileDropdownLabel" class="pl-7">Vše</span>
+
+      <!-- chevron -->
+      <svg class="pointer-events-none h-5 w-5 text-white/70" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+        <path fill-rule="evenodd"
+              d="M5.23 7.21a.75.75 0 011.06.02L10 11.17l3.71-3.94a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
+              clip-rule="evenodd" />
+      </svg>
+    </button>
+
+    <!-- Rozbalené menu (glass list) -->
+    <ul
+      id="mobileDropdownMenu"
+      class="invisible absolute z-50 mt-2 w-full translate-y-2 opacity-0
+             rounded-2xl bg-black/60 p-1 ring-1 ring-white/10
+             backdrop-blur-md shadow-2xl transition
+             data-[open=true]:visible data-[open=true]:translate-y-0 data-[open=true]:opacity-100"
+      role="listbox"
+      aria-labelledby="mobileDropdownBtn"
+    >
+      <!-- Položky -->
+      <li>
+        <button data-mobile-option="all"
+          class="w-full rounded-xl px-4 py-2 text-left text-sm text-white/90 hover:bg-white/10">
+          Vše
+        </button>
+      </li>
+      <li>
+        <button data-mobile-option="obuv"
+          class="w-full rounded-xl px-4 py-2 text-left text-sm text-white/90 hover:bg-white/10">
+          Obuv
+        </button>
+      </li>
+      <li>
+        <button data-mobile-option="obleceni"
+          class="w-full rounded-xl px-4 py-2 text-left text-sm text-white/90 hover:bg-white/10">
+          Oblečení
+        </button>
+      </li>
+      <li>
+        <button data-mobile-option="batohy"
+          class="w-full rounded-xl px-4 py-2 text-left text-sm text-white/90 hover:bg-white/10">
+          Batohy
+        </button>
+      </li>
+      <li>
+        <button data-mobile-option="doplnky"
+          class="w-full rounded-xl px-4 py-2 text-left text-sm text-white/90 hover:bg-white/10">
+          Doplňky
+        </button>
+      </li>
+    </ul>
+  </div>
+</div>
+

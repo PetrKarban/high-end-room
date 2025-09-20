@@ -1,1 +1,25 @@
 @import "tailwindcss";
+
+/* Výchozí vzhled tlačítek (components) */
+@layer components {
+  [data-filter] {
+    @apply rounded-full px-4 py-2 text-sm text-white/80 hover:text-white transition-colors;
+  }
+}
+
+/* Aktivní stav MUSÍ vyhrát -> dej ho do utilities */
+@layer utilities {
+  [data-filter].is-active {
+    @apply bg-white !text-black font-semibold;
+  }
+}
+
+/* Plynulý scroll pro kotvy (#catalog apod.) */
+html {
+  scroll-behavior: smooth;
+}
+
+@layer utilities {
+  /* Jemnější fokus prstenec */
+  .ring-smooth { @apply ring-1 ring-white/10 focus:ring-2 focus:ring-white/30; }
+}

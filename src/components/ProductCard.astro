@@ -4,35 +4,73 @@ type CardProduct = {
   title: string;
   brand: string;
   category: "obuv" | "obleceni" | "batohy" | "doplnky";
-  size?: string;
+  subcategory?: string;
+  sizes?: string[];        // ⬅ přidej pole velikostí
+  size?: string;           // můžeš nechat i jedno číslo, pokud ho někde používáš
   condition?: string;
   price?: number;
   status?: "available" | "sold";
   images: string[];
 };
+
 const { product } = Astro.props as { product: CardProduct };
 const sold = product.status === "sold";
 ---
+
+
 <article
   data-item
   data-category={product.category}
+  data-subcategory={product.subcategory ?? ''}
+  data-brand={product.brand.toLowerCase().replace(/\s+/g, '')}
   data-status={product.status ?? "available"}
-  class="relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 shadow-lg transition hover:scale-[1.01]"
+  data-sizes={product.sizes && product.sizes.length > 0 ? product.sizes.join(',') : ''}
+  class="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 shadow-lg transition hover:scale-[1.01]"
 >
   <a href={`/p/${product.id}`} class="block">
-    <div class="aspect-[4/5] w-full overflow-hidden bg-black/40">
+    <!-- Obrázek s přepnutím při hoveru a ribbonem -->
+    <div class="relative aspect-[4/5] w-full overflow-hidden bg-black/40">
+      <!-- První obrázek -->
       <img
         src={product.images[0]}
         alt={`${product.brand} ${product.title}`}
-        class={`h-full w-full object-cover ${sold ? "opacity-70" : ""}`}
+        class={`absolute inset-0 h-full w-full object-cover transition-opacity duration-500 ${product.images[1] ? 'group-hover:opacity-0' : ''} ${sold ? "opacity-70" : ""}`}
         loading="lazy"
       />
+
+      <!-- Druhý obrázek při hoveru -->
+      {product.images[1] && (
+        <img
+          src={product.images[1]}
+          alt={`${product.brand} ${product.title} alternate`}
+          class={`absolute inset-0 h-full w-full object-cover opacity-0 transition-opacity duration-500 group-hover:opacity-100 ${sold ? "opacity-70" : ""}`}
+          loading="lazy"
+        />
+      )}
+
+      <!-- Ribbon Vyprodáno -->
+      {sold && (
+        <div class="absolute right-[-50px] top-4 rotate-45">
+          <span
+            class="block w-[160px] bg-red-600 py-1 text-center text-xs font-bold uppercase tracking-wide text-white shadow-md animate-[slideIn_0.5s_ease-out]"
+          >
+            Vyprodáno
+          </span>
+        </div>
+      )}
     </div>
 
+    <!-- Texty pod obrázkem -->
     <div class="space-y-1 p-4">
       <div class="flex items-center justify-between gap-2">
-        <h3 class="text-base font-semibold">{product.brand}</h3>
-        {product.price && <p class="text-sm text-gray-300">{product.price.toLocaleString("cs-CZ")} Kč</p>}
+        <h3 class="text-base font-semibold transition-colors duration-300 group-hover:text-white">
+          {product.brand}
+        </h3>
+        {product.price && (
+          <p class="text-sm text-gray-300">
+            {product.price.toLocaleString("cs-CZ")} Kč
+          </p>
+        )}
       </div>
       <p class="text-sm text-gray-300">{product.title}</p>
       <p class="text-xs text-gray-400">
@@ -42,17 +80,22 @@ const sold = product.status === "sold";
     </div>
   </a>
 
-  {sold && (
-    <span class="absolute left-2 top-2 rounded-full bg-red-600 px-3 py-1 text-xs font-bold">SOLD</span>
-  )}
-
+  <!-- Tlačítka pod kartou -->
   <div class="flex items-center gap-2 p-4 pt-0">
-    <a href="https://instagram.com/username" target="_blank" rel="noopener"
-       class="inline-flex flex-1 items-center justify-center rounded-full border border-white/20 px-3 py-2 text-sm font-medium hover:bg-white/10">
+    <a
+      href="https://instagram.com/username"
+      target="_blank"
+      rel="noopener"
+      class="inline-flex flex-1 items-center justify-center rounded-full border border-white/20 px-3 py-2 text-sm font-medium transition-colors duration-300 hover:bg-white/10 hover:border-white/40"
+    >
       Instagram
     </a>
-    <a href="https://t.me/username" target="_blank" rel="noopener"
-       class="inline-flex flex-1 items-center justify-center rounded-full bg-white px-3 py-2 text-sm font-bold text-black hover:opacity-90">
+    <a
+      href="https://t.me/username"
+      target="_blank"
+      rel="noopener"
+      class="inline-flex flex-1 items-center justify-center rounded-full bg-white px-3 py-2 text-sm font-bold text-black transition-transform duration-300 hover:scale-105"
+    >
       Telegram
     </a>
   </div>

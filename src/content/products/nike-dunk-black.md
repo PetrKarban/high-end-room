@@ -2,7 +2,7 @@
 title: "Dunk Low Black"
 brand: "Nike"
 category: "obuv"
-size: "42"
+sizes: ["38","39","42","43","45"]
 condition: "9/10"
 price: 4900
 status: "available"

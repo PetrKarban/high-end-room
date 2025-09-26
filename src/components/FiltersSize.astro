@@ -1,0 +1,58 @@
+---
+const sizes = [
+  { value: "38", label: "38" },
+  { value: "39", label: "39" },
+  { value: "40", label: "40" },
+  { value: "41", label: "41" },
+  { value: "42", label: "42" },
+  { value: "43", label: "43" },
+  { value: "44", label: "44" },
+  { value: "45", label: "45" },
+  { value: "46", label: "46" },
+  { value: "S", label: "S" },
+  { value: "M", label: "M" },
+  { value: "L", label: "L" },
+  { value: "XL", label: "XL" },
+];
+---
+<div class="relative sm:block">
+  <!-- tlačítko -->
+  <button
+    id="sizeDropdownBtn"
+    type="button"
+    class="flex w-full items-center justify-between rounded-full bg-white/10 px-4 py-2 text-sm text-white backdrop-blur-md ring-1 ring-white/20 shadow-md transition-colors min-w-[150px]"
+  >
+    <span id="sizeDropdownLabel">Vybrat velikosti</span>
+    <svg class="h-4 w-4 text-white/70" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+      <path
+        fill-rule="evenodd"
+        d="M5.23 7.21a.75.75 0 011.06.02L10 11.17l3.71-3.94a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
+        clip-rule="evenodd" />
+    </svg>
+  </button>
+
+  <!-- menu -->
+  <ul
+    id="sizeDropdownMenu"
+    class="absolute z-50 mt-2 hidden w-full overflow-hidden rounded-xl bg-black/70 backdrop-blur-md ring-1 ring-white/20 shadow-lg"
+  >
+    <li>
+      <button
+        class="block w-full px-4 py-2 text-left text-sm text-white/80 hover:bg-white/20"
+        data-size-value="all"
+      >
+        Všechny velikosti
+      </button>
+    </li>
+    {sizes.map((s) => (
+      <li>
+        <button
+          class="block w-full px-4 py-2 text-left text-sm text-white/80 hover:bg-white/20"
+          data-size-value={s.value}
+        >
+          {s.label}
+        </button>
+      </li>
+    ))}
+  </ul>
+</div>

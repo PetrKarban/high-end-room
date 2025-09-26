@@ -4,6 +4,9 @@ import ProductCard from "../components/ProductCard.astro";
 import FiltersDesktop from "../components/FiltersDesktop.astro";
 import FiltersMobile from "../components/FiltersMobile.astro";
 import { getCollection } from "astro:content";
+import FiltersBrand from "../components/FiltersBrand.astro";
+import FiltersSize from "../components/FiltersSize.astro";
+
 
 const products = await getCollection("products");
 const sorted = products.sort((a, b) => (b.data.date ?? "") > (a.data.date ?? "") ? 1 : -1);
@@ -34,30 +37,35 @@ const sorted = products.sort((a, b) => (b.data.date ?? "") > (a.data.date ?? "")
         <p class="text-sm text-gray-400">Aktuálně {sorted.length} položek</p>
       </div>
 
-      <div class="flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:items-center">
-        <!-- Desktop filtry (tlačítka) -->
-        <FiltersDesktop />
-        <!-- Mobilní filtry (select) -->
-        <FiltersMobile />
+      <div class="flex flex-wrap items-center gap-2 w-full sm:w-auto">
+  <FiltersDesktop />
+  <FiltersMobile />
+  <FiltersBrand />
+  <FiltersSize />
 
-        <!-- Pouze skladem -->
-        <label class="inline-flex cursor-pointer items-center gap-2 rounded-full bg-white/5 px-4 py-2 text-sm">
-          <input id="onlyAvailable" type="checkbox" class="accent-white" />
-          Pouze skladem
-        </label>
+  <label class="ml-2 inline-flex cursor-pointer items-center gap-2 rounded-full bg-white/5 px-4 py-2 text-sm">
+    <input id="onlyAvailable" type="checkbox" class="accent-white" />
+        Pouze skladem
+  </label>
+  <button
+  id="resetFilters"
+  class="hidden rounded-full bg-red-600 px-4 py-2 text-sm font-semibold text-white
+         backdrop-blur-md ring-1 ring-white/20 shadow-md transition-colors hover:bg-red-500"
+>
+  Zrušit filtry
+</button>
+
       </div>
     </div>
 
     <!-- GRID PRODUKTŮ -->
     <div data-grid class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-      {sorted.map((entry) => (
-        <ProductCard product={{ id: entry.slug, ...entry.data }} />
-      ))}
-    </div>
+  {sorted.map((entry) => (
+    <ProductCard product={{ id: entry.slug, ...entry.data }} />
+  ))}
+</div>
   </section>
 
   <!-- Client script (filtrace – desktop tlačítka + mobilní select) -->
   <script type="module" src="/js/filters.js"></script>
 </Base>
-
-

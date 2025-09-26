@@ -1,0 +1,51 @@
+---
+const brands = [
+  { value: "all", label: "Všechny značky" },
+  { value: "louisvuitton", label: "Louis Vuitton" },
+  { value: "dior", label: "Dior" },
+  { value: "gucci", label: "Gucci" },
+  { value: "balenciaga", label: "Balenciaga" },
+  { value: "bape", label: "Bape" },
+  { value: "nike", label: "Nike" },
+];
+---
+
+<div class="relative sm:block">
+  <!-- tlačítko -->
+  <button
+  id="brandDropdownBtn"
+  type="button"
+  class="flex w-full items-center justify-between
+         rounded-full bg-white/10 px-4 py-2 text-sm text-white
+         backdrop-blur-md ring-1 ring-white/20 shadow-md transition-colors
+         min-w-[150px]"  
+>
+  <span id="brandDropdownLabel">Všechny značky</span>
+  <svg class="h-4 w-4 text-white/70" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+    <path
+      fill-rule="evenodd"
+      d="M5.23 7.21a.75.75 0 011.06.02L10 11.17l3.71-3.94a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
+      clip-rule="evenodd" />
+  </svg>
+</button>
+
+
+  <!-- menu -->
+  <ul
+  id="brandDropdownMenu"
+  class="absolute z-50 mt-2 hidden w-full overflow-hidden rounded-xl bg-black/70 backdrop-blur-md ring-1 ring-white/20 shadow-lg"
+>
+
+    {brands.map((b) => (
+      <li>
+        <button
+          class="block w-full px-4 py-2 text-left text-sm text-white/80 hover:bg-white/20"
+          data-brand-value={b.value}
+        >
+          {b.label}
+        </button>
+      </li>
+    ))}
+  </ul>
+</div>
+

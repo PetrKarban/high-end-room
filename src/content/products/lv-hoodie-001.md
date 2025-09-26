@@ -1,8 +1,9 @@
 ---
 title: "Monogram Hoodie"
 brand: "Louis Vuitton"
+sizes: ["S","M","XL"]
 category: "obleceni"
-size: "M"
+subcategory: "mikina"
 condition: "9/10"
 price: 12500
 status: "available"

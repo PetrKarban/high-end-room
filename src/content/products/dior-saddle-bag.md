@@ -1,6 +1,7 @@
 ---
 title: "Saddle Bag"
 brand: "Dior"
+sizes: []
 category: "doplnky"
 condition: "8/10"
 price: 21500

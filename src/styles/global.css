@@ -1,25 +1,53 @@
 @import "tailwindcss";
 
-/* Výchozí vzhled tlačítek (components) */
-@layer components {
-  [data-filter] {
-    @apply rounded-full px-4 py-2 text-sm text-white/80 hover:text-white transition-colors;
-  }
-}
-
-/* Aktivní stav MUSÍ vyhrát -> dej ho do utilities */
-@layer utilities {
-  [data-filter].is-active {
-    @apply bg-white !text-black font-semibold;
-  }
-}
-
-/* Plynulý scroll pro kotvy (#catalog apod.) */
+/* Hezčí scroll pro kotvy (#catalog apod.) */
 html {
   scroll-behavior: smooth;
 }
 
-@layer utilities {
-  /* Jemnější fokus prstenec */
-  .ring-smooth { @apply ring-1 ring-white/10 focus:ring-2 focus:ring-white/30; }
+/* --- sjednocené UI filtrů s opravdovým glass lookem --- */
+
+/* desktop tlačítka kategorií */
+[data-filter] {
+  @apply rounded-full bg-black/60 px-4 py-2 text-sm text-white/80
+         backdrop-blur-md ring-1 ring-white/20 shadow-md transition-colors;
+}
+
+[data-filter]:hover {
+  @apply text-white bg-white/20 ring-white/30;
+}
+
+/* aktivní tlačítko */
+[data-filter].is-active {
+  @apply bg-white text-black font-semibold shadow-lg;
+}
+
+/* mobilní select kategorie */
+#filterDropdown {
+  @apply rounded-full bg-black/60 px-4 py-2 text-sm text-white
+         backdrop-blur-md ring-1 ring-white/20 shadow-md transition-colors;
+}
+
+#filterDropdown:hover {
+  @apply bg-white/20 ring-white/30;
+}
+
+/* brand select (značky) */
+#brandFilter {
+  @apply rounded-full bg-black/60 px-4 py-2 text-sm text-white
+         backdrop-blur-md ring-1 ring-white/20 shadow-md transition-colors;
+}
+
+#brandFilter:hover {
+  @apply bg-white/20 ring-white/30;
+}
+
+/* základní styl inputů/checkboxů v labelu */
+input[type="checkbox"] {
+  @apply accent-white;
+}
+
+/* efekty hoveru na kartách */
+.group:hover h3 {
+  @apply text-white;
 }

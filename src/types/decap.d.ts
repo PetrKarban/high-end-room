@@ -3,7 +3,19 @@ declare const CMS: any;
 
 declare global {
   interface Window {
+    // ruční init Decapu
     CMS_MANUAL_INIT?: boolean;
+
+    // Decap CMS UI API dostupné na window
+    CMS?: any;
+
+    // Netlify Identity (Git Gateway přihlášení)
+    netlifyIdentity?: {
+      on: (event: string, callback: (user?: any) => void) => void;
+      open?: () => void;
+      logout?: () => void;
+    };
   }
 }
+
 export {};

@@ -1,30 +1,92 @@
 backend:
-  name: git-gateway
+  name: git-gateway   # pokud používáš Netlify Identity + Git Gateway
   branch: main
+# Pokud chceš přímo GitHub backend (bez Identity), použij místo výše:
+# backend:
+#   name: github
+#   repo: <tvůj-username>/<tvé-repo>
+#   branch: main
 
-media_folder: "public/products"
-public_folder: "/products"
+site_url: /
+logo_url: /image/astro.svg
+
+media_folder: "public/products"      # kam se ukládají soubory v repo
+public_folder: "/products"           # jak se k nim přistupuje na webu
+
+publish_mode: editorial_workflow     # návrhy → schválení → publikace (klidně změň na simple)
 
 collections:
   - name: "products"
     label: "Produkty"
     label_singular: "Produkt"
+    description: "Přidávej a upravuj produkty v katalogu"
     folder: "src/content/products"
     create: true
-    slug: "{{slug}}"
-    extension: "md"
-    format: "frontmatter"
+    slug: "{{slug}}"                 # soubor bude např. src/content/products/nazev.md
+    path: "{{slug}}"
+    sortable_fields: ["date", "title", "brand"]
+    # Obrázky každého produktu do vlastní složky:
+    media_folder: "public/products/{{slug}}"
+    public_folder: "/products/{{slug}}"
+
     fields:
-      - { name: "title", label: "Název", widget: "string" }
-      - { name: "brand", label: "Značka", widget: "string" }
-      - { name: "size", label: "Velikost", widget: "string", required: false }
-      - { name: "condition", label: "Stav", widget: "string", required: false }
-      - { name: "price", label: "Cena (Kč)", widget: "number", required: false, value_type: "int" }
-      - { name: "status", label: "Stav", widget: "select", options: ["available","sold"], default: "available" }
+      - { label: "Titulek", name: "title", widget: "string" }
+      - { label: "Značka", name: "brand", widget: "string" }
+
+      - label: "Kategorie"
+        name: "category"
+        widget: "select"
+        options:
+          - { label: "Obuv", value: "obuv" }
+          - { label: "Oblečení", value: "obleceni" }
+          - { label: "Batohy", value: "batohy" }
+          - { label: "Doplňky", value: "doplnky" }
+        default: "obleceni"
+
+      - label: "Subkategorie (jen pro Oblečení)"
+        name: "subcategory"
+        widget: "select"
+        required: false
+        options:
+          - { label: "Tričko", value: "triko" }
+          - { label: "Mikina", value: "mikina" }
+          - { label: "Bunda", value: "bunda" }
+
+      - label: "Velikosti (více hodnot)"
+        name: "sizes"
+        widget: "list"
+        required: false
+        allow_add: true
+        field:
+          label: "Velikost"
+          name: "size"
+          widget: "string"
+        hint: "Např. 38, 39, 40… nebo S, M, L, XL"
+
+      - { label: "Stav", name: "condition", widget: "string", required: false, hint: "např. 9/10" }
+      - { label: "Cena (Kč)", name: "price", widget: "number", value_type: "int", required: false, min: 0 }
+
+      - label: "Stav dostupnosti"
+        name: "status"
+        widget: "select"
+        options:
+          - { label: "Skladem", value: "available" }
+          - { label: "Vyprodáno", value: "sold" }
+        default: "available"
+
       - label: "Obrázky"
         name: "images"
         widget: "list"
-        field: { name: "image", label: "Obrázek", widget: "image" }
-      - { name: "tags", label: "Tagy", widget: "list", required: false }
-      - { name: "date", label: "Datum", widget: "datetime", required: false, format: "YYYY-MM-DD" }
-      - { name: "body", label: "Popis", widget: "markdown", required: false }
+        allow_add: true
+        field:
+          label: "Obrázek"
+          name: "image"
+          widget: "image"
+        hint: "První obrázek je cover. Ukládá se do /public/products/{{slug}}/"
+
+      - { label: "Tagy", name: "tags", widget: "list", required: false }
+      - { label: "Datum", name: "date", widget: "datetime", required: false, format: "YYYY-MM-DD" }
+
+      # Pokud chceš volitelný krátký popis:
+      - { label: "Popis", name: "body", widget: "markdown", required: false }
+

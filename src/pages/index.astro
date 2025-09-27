@@ -6,6 +6,7 @@ import FiltersMobile from "../components/FiltersMobile.astro";
 import { getCollection } from "astro:content";
 import FiltersBrand from "../components/FiltersBrand.astro";
 import FiltersSize from "../components/FiltersSize.astro";
+import FiltersPrice from "../components/FiltersPrice.astro";
 
 
 const products = await getCollection("products");
@@ -42,6 +43,7 @@ const sorted = products.sort((a, b) => (b.data.date ?? "") > (a.data.date ?? "")
   <FiltersMobile />
   <FiltersBrand />
   <FiltersSize />
+  <FiltersPrice />
 
   <label class="ml-2 inline-flex cursor-pointer items-center gap-2 rounded-full bg-white/5 px-4 py-2 text-sm">
     <input id="onlyAvailable" type="checkbox" class="accent-white" />

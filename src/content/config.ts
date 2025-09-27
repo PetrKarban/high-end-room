@@ -6,8 +6,9 @@ const products = defineCollection({
     title: z.string(),
     brand: z.string(),
     category: z.enum(["obuv", "obleceni", "batohy", "doplnky"]),
-    subcategory: z.string().optional(),             // ⬅ přidat
-    sizes: z.array(z.string()).optional().default([]),
+    subcategory: z.enum(["triko", "mikina", "bunda"]).optional(), // jen pro oblečení
+    sizes: z.array(z.string()).optional(),
+    size: z.string().optional(), // můžeš ponechat kvůli starším záznamům
     condition: z.string().optional(),
     price: z.number().optional(),
     status: z.enum(["available", "sold"]).default("available"),
@@ -18,3 +19,4 @@ const products = defineCollection({
 });
 
 export const collections = { products };
+

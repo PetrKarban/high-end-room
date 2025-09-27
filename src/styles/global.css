@@ -22,6 +22,17 @@ html {
   @apply bg-white text-black font-semibold shadow-lg;
 }
 
+/* aktivní tlačítko – Oblečení (dropdown) */
+#obleceniDropdownBtn.is-active {
+  @apply bg-white text-black font-semibold shadow-lg;
+}
+
+/* změní barvu šipky ve chvíli, kdy je tlačítko aktivní */
+#obleceniDropdownBtn.is-active svg {
+  @apply text-black;
+}
+
+
 /* mobilní select kategorie */
 #filterDropdown {
   @apply rounded-full bg-black/60 px-4 py-2 text-sm text-white
@@ -51,3 +62,10 @@ input[type="checkbox"] {
 .group:hover h3 {
   @apply text-white;
 }
+
+[data-filter].is-active { @apply bg-white text-black font-semibold shadow-lg; }
+#obleceniDropdownBtn.is-active { @apply bg-white text-black font-semibold shadow-lg; }
+#obleceniDropdownBtn.is-active svg { @apply text-black; }
+
+#priceDropdownBtn.is-active { @apply bg-white text-black font-semibold shadow-lg; }
+#priceDropdownBtn.is-active svg { @apply text-black; }

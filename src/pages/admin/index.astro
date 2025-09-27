@@ -1,5 +1,5 @@
 ---
-/* samostatná admin stránka – bez layoutu a bez Netlify Identity */
+/* samostatná admin stránka */
 ---
 <!doctype html>
 <html lang="cs">
@@ -10,35 +10,11 @@
     <meta name="robots" content="noindex" />
   </head>
   <body>
-    <!-- Ruční init Decapu, ať se nenačítá nic z Netlify Identity -->
-    <script>
-      window.CMS_MANUAL_INIT = true;
-    </script>
-
-    <!-- Decap CMS UI -->
+    <!-- Decap CMS UI + Git Gateway login -->
     <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
-
-    <script>
-      (function () {
-        function initCMS() {
-          if (!window.CMS) {
-            console.error("Decap CMS script not loaded yet.");
-            return;
-          }
-          window.CMS.init({
-            // relativně k /admin -> tedy /admin/config.yml
-            configPath: "config.yml",
-          });
-        }
-        if (document.readyState === "loading") {
-          document.addEventListener("DOMContentLoaded", initCMS);
-        } else {
-          initCMS();
-        }
-      })();
-    </script>
   </body>
 </html>
+
 
 
 

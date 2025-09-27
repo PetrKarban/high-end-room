@@ -1,9 +1,6 @@
 backend:
-  name: github
-  repo: PetrKarban/high-end-room   # přesný název tvého repa
+  name: git-gateway
   branch: main
-
-site_url: https://highendroom.netlify.app
 
 media_folder: "public/uploads"
 public_folder: "/uploads"
@@ -18,15 +15,23 @@ collections:
       - { name: "title", label: "Název", widget: "string" }
       - { name: "brand", label: "Značka", widget: "string" }
       - { name: "category", label: "Kategorie", widget: "select", options: ["obuv","obleceni","batohy","doplnky"] }
-      - { name: "subcategory", label: "Podkategorie", widget: "string", required: false }
-      - { name: "sizes", label: "Velikosti", widget: "list", required: false, field: { label: "Velikost", name: "size", widget: "string" } }
+      - { name: "subcategory", label: "Podkategorie", widget: "select", required: false, options: ["triko","mikina","bunda"] }
+      - label: "Velikosti"
+        name: "sizes"
+        widget: "list"
+        required: false
+        field: { label: "Velikost", name: "size", widget: "string" }
       - { name: "condition", label: "Stav", widget: "string", required: false }
-      - { name: "price", label: "Cena", widget: "number", value_type: "int", min: 0 }
+      - { name: "price", label: "Cena (Kč)", widget: "number", value_type: "int", min: 0 }
       - { name: "status", label: "Stav produktu", widget: "select", options: ["available", "sold"] }
-      - { name: "images", label: "Obrázky", widget: "list", field: { label: "Obrázek", name: "url", widget: "image" } }
+      - label: "Obrázky"
+        name: "images"
+        widget: "list"
+        field: { label: "Obrázek", name: "url", widget: "image" }
       - { name: "tags", label: "Tagy", widget: "list", required: false }
       - { name: "date", label: "Datum", widget: "datetime", required: false }
       - { name: "body", label: "Popis", widget: "markdown", required: false }
+
 
 
 

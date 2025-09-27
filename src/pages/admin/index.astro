@@ -9,29 +9,28 @@
     <title>Content Manager</title>
     <meta name="robots" content="noindex" />
 
+    <!-- ruční inicializace Decapu -->
+    <script>
+      (window).CMS_MANUAL_INIT = true;
+    </script>
+
     <!-- Decap CMS UI -->
     <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
 
-    <!-- Netlify Identity (pro Git Gateway přihlášení) -->
+    <!-- Netlify Identity widget -->
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-
-    <!-- Řekneme Decapu, že init děláme manuálně (čistý JS) -->
-    <script>
-      window.CMS_MANUAL_INIT = true;
-    </script>
   </head>
   <body>
     <script>
-      // Inicializace Decap CMS
+      // inicializace CMS
       function initCMS() {
-        var cms = window.CMS;
+        const cms = window.CMS;
         if (!cms) {
           console.error("Decap CMS script not loaded yet.");
           return;
         }
         cms.init({
-          // relativně k /admin → načte /admin/config.yml
-          configPath: "config.yml",
+          configPath: "config.yml", // relativně k /admin
         });
       }
 
@@ -41,12 +40,12 @@
         initCMS();
       }
 
-      // Auto-reload po přihlášení přes Netlify Identity
+      // Auto-redirect do /admin po přihlášení přes Netlify Identity
       if (window.netlifyIdentity) {
         window.netlifyIdentity.on("init", function (user) {
           if (!user) {
             window.netlifyIdentity.on("login", function () {
-              window.location.reload();
+              document.location.href = "/admin/";
             });
           }
         });
@@ -54,6 +53,7 @@
     </script>
   </body>
 </html>
+
 
 
 

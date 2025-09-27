@@ -1,19 +1,19 @@
 backend:
-  name: git-gateway        # přihlášení přes Netlify Identity
-  branch: main             # větev v GitHubu, kterou používáš
+  name: github
+  repo: PetrKarban/high-end-room         # ← tvůj repozitář ve tvaru uživatel/repozitář
+  branch: main                         # větev, do které zapisujete
 
 site_url: https://highendroom.netlify.app
-logo_url: https://unpkg.com/decap-cms@^3.0.0/logo.svg
 
-media_folder: "public/uploads"    # kam se ukládají obrázky v repozitáři
-public_folder: "/uploads"         # jak se k nim přistupuje z webu
+media_folder: "public/uploads"
+public_folder: "/uploads"
 
 collections:
-  - name: "products"              # název kolekce
-    label: "Produkty"             # název v CMS
-    folder: "src/content/products"  # cesta ke složce s produkty
-    create: true                  # možnost vytvořit nový produkt
-    slug: "{{slug}}"              # slug názvu souboru
+  - name: "products"
+    label: "Produkty"
+    folder: "src/content/products"
+    create: true
+    slug: "{{slug}}"
     fields:
       - { name: "title", label: "Název", widget: "string" }
       - { name: "brand", label: "Značka", widget: "string" }
@@ -27,6 +27,7 @@ collections:
       - { name: "tags", label: "Tagy", widget: "list", required: false }
       - { name: "date", label: "Datum", widget: "datetime", required: false }
       - { name: "body", label: "Popis", widget: "markdown", required: false }
+
 
 
 

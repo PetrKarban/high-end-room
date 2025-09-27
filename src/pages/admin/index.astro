@@ -1,5 +1,5 @@
 ---
-/* Samostatná admin stránka – bez layoutu */
+/* samostatná admin stránka – bez layoutu a bez Netlify Identity */
 ---
 <!doctype html>
 <html lang="cs">
@@ -8,36 +8,38 @@
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Content Manager</title>
     <meta name="robots" content="noindex" />
-
-    <!-- ruční inicializace Decapu -->
+  </head>
+  <body>
+    <!-- Ruční init Decapu, ať se nenačítá nic z Netlify Identity -->
     <script>
       window.CMS_MANUAL_INIT = true;
     </script>
 
     <!-- Decap CMS UI -->
     <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
-  </head>
-  <body>
-    <script>
-      function initCMS() {
-        const cms = window.CMS;
-        if (!cms) {
-          console.error("Decap CMS script not loaded yet.");
-          return;
-        }
-        cms.init({
-          configPath: "config.yml",
-        });
-      }
 
-      if (document.readyState === "loading") {
-        document.addEventListener("DOMContentLoaded", initCMS);
-      } else {
-        initCMS();
-      }
+    <script>
+      (function () {
+        function initCMS() {
+          if (!window.CMS) {
+            console.error("Decap CMS script not loaded yet.");
+            return;
+          }
+          window.CMS.init({
+            // relativně k /admin -> tedy /admin/config.yml
+            configPath: "config.yml",
+          });
+        }
+        if (document.readyState === "loading") {
+          document.addEventListener("DOMContentLoaded", initCMS);
+        } else {
+          initCMS();
+        }
+      })();
     </script>
   </body>
 </html>
+
 
 
 

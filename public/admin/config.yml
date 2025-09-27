@@ -1,9 +1,9 @@
 backend:
   name: git-gateway        # přihlášení přes Netlify Identity
   branch: main             # větev v GitHubu, kterou používáš
-  base_url: https://highendroom.netlify.app
 
 site_url: https://highendroom.netlify.app
+logo_url: https://unpkg.com/decap-cms@^3.0.0/logo.svg
 
 media_folder: "public/uploads"    # kam se ukládají obrázky v repozitáři
 public_folder: "/uploads"         # jak se k nim přistupuje z webu
@@ -27,5 +27,6 @@ collections:
       - { name: "tags", label: "Tagy", widget: "list", required: false }
       - { name: "date", label: "Datum", widget: "datetime", required: false }
       - { name: "body", label: "Popis", widget: "markdown", required: false }
+
 
 

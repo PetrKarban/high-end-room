@@ -1,17 +1,15 @@
 backend:
   name: github
-  repo: PetrKarban/high-end-room       # <– tvůj GitHub účet a repozitář
-  branch: main                        # větev, do které se ukládají změny
-  base_url: https://api.netlify.com   # Decap použije Netlify backend
-  auth_endpoint: auth                 # Netlify přepošle login na GitHub OAuth
+  repo: PetrKarban/high-end-room   # přesně podle tvého repozitáře
+  branch: main
 
 site_url: https://highendroom.netlify.app
 
-media_folder: "public/uploads"    # kam se ukládají obrázky v repozitáři
-public_folder: "/uploads"         # jak se k nim přistupuje z webu
+media_folder: "public/uploads"
+public_folder: "/uploads"
 
 collections:
-  - name: "products"              
+  - name: "products"
     label: "Produkty"
     folder: "src/content/products"
     create: true
@@ -29,6 +27,7 @@ collections:
       - { name: "tags", label: "Tagy", widget: "list", required: false }
       - { name: "date", label: "Datum", widget: "datetime", required: false }
       - { name: "body", label: "Popis", widget: "markdown", required: false }
+
 
 
 

@@ -1,92 +1,31 @@
 backend:
-  name: git-gateway   # pokud používáš Netlify Identity + Git Gateway
-  branch: main
-# Pokud chceš přímo GitHub backend (bez Identity), použij místo výše:
-# backend:
-#   name: github
-#   repo: <tvůj-username>/<tvé-repo>
-#   branch: main
+  name: git-gateway        # přihlášení přes Netlify Identity
+  branch: main             # větev v GitHubu, kterou používáš
+  base_url: https://highendroom.netlify.app
 
-site_url: /
-logo_url: /image/astro.svg
+site_url: https://highendroom.netlify.app
 
-media_folder: "public/products"      # kam se ukládají soubory v repo
-public_folder: "/products"           # jak se k nim přistupuje na webu
-
-publish_mode: editorial_workflow     # návrhy → schválení → publikace (klidně změň na simple)
+media_folder: "public/uploads"    # kam se ukládají obrázky v repozitáři
+public_folder: "/uploads"         # jak se k nim přistupuje z webu
 
 collections:
-  - name: "products"
-    label: "Produkty"
-    label_singular: "Produkt"
-    description: "Přidávej a upravuj produkty v katalogu"
-    folder: "src/content/products"
-    create: true
-    slug: "{{slug}}"                 # soubor bude např. src/content/products/nazev.md
-    path: "{{slug}}"
-    sortable_fields: ["date", "title", "brand"]
-    # Obrázky každého produktu do vlastní složky:
-    media_folder: "public/products/{{slug}}"
-    public_folder: "/products/{{slug}}"
-
+  - name: "products"              # název kolekce
+    label: "Produkty"             # název v CMS
+    folder: "src/content/products"  # cesta ke složce s produkty
+    create: true                  # možnost vytvořit nový produkt
+    slug: "{{slug}}"              # slug názvu souboru
     fields:
-      - { label: "Titulek", name: "title", widget: "string" }
-      - { label: "Značka", name: "brand", widget: "string" }
+      - { name: "title", label: "Název", widget: "string" }
+      - { name: "brand", label: "Značka", widget: "string" }
+      - { name: "category", label: "Kategorie", widget: "select", options: ["obuv","obleceni","batohy","doplnky"] }
+      - { name: "subcategory", label: "Podkategorie", widget: "string", required: false }
+      - { name: "sizes", label: "Velikosti", widget: "list", required: false, field: {label: "Velikost", name: "size", widget: "string"} }
+      - { name: "condition", label: "Stav", widget: "string", required: false }
+      - { name: "price", label: "Cena", widget: "number", value_type: "int", min: 0 }
+      - { name: "status", label: "Stav produktu", widget: "select", options: ["available", "sold"] }
+      - { name: "images", label: "Obrázky", widget: "list", field: {label: "Obrázek", name: "url", widget: "image"} }
+      - { name: "tags", label: "Tagy", widget: "list", required: false }
+      - { name: "date", label: "Datum", widget: "datetime", required: false }
+      - { name: "body", label: "Popis", widget: "markdown", required: false }
 
-      - label: "Kategorie"
-        name: "category"
-        widget: "select"
-        options:
-          - { label: "Obuv", value: "obuv" }
-          - { label: "Oblečení", value: "obleceni" }
-          - { label: "Batohy", value: "batohy" }
-          - { label: "Doplňky", value: "doplnky" }
-        default: "obleceni"
-
-      - label: "Subkategorie (jen pro Oblečení)"
-        name: "subcategory"
-        widget: "select"
-        required: false
-        options:
-          - { label: "Tričko", value: "triko" }
-          - { label: "Mikina", value: "mikina" }
-          - { label: "Bunda", value: "bunda" }
-
-      - label: "Velikosti (více hodnot)"
-        name: "sizes"
-        widget: "list"
-        required: false
-        allow_add: true
-        field:
-          label: "Velikost"
-          name: "size"
-          widget: "string"
-        hint: "Např. 38, 39, 40… nebo S, M, L, XL"
-
-      - { label: "Stav", name: "condition", widget: "string", required: false, hint: "např. 9/10" }
-      - { label: "Cena (Kč)", name: "price", widget: "number", value_type: "int", required: false, min: 0 }
-
-      - label: "Stav dostupnosti"
-        name: "status"
-        widget: "select"
-        options:
-          - { label: "Skladem", value: "available" }
-          - { label: "Vyprodáno", value: "sold" }
-        default: "available"
-
-      - label: "Obrázky"
-        name: "images"
-        widget: "list"
-        allow_add: true
-        field:
-          label: "Obrázek"
-          name: "image"
-          widget: "image"
-        hint: "První obrázek je cover. Ukládá se do /public/products/{{slug}}/"
-
-      - { label: "Tagy", name: "tags", widget: "list", required: false }
-      - { label: "Datum", name: "date", widget: "datetime", required: false, format: "YYYY-MM-DD" }
-
-      # Pokud chceš volitelný krátký popis:
-      - { label: "Popis", name: "body", widget: "markdown", required: false }
 

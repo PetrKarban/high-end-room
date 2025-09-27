@@ -1,73 +1,41 @@
 ---
-import Base from "../layouts/Base.astro";
-import ProductCard from "../components/ProductCard.astro";
-import FiltersDesktop from "../components/FiltersDesktop.astro";
-import FiltersMobile from "../components/FiltersMobile.astro";
-import { getCollection } from "astro:content";
-import FiltersBrand from "../components/FiltersBrand.astro";
-import FiltersSize from "../components/FiltersSize.astro";
-import FiltersPrice from "../components/FiltersPrice.astro";
-
-
-const products = await getCollection("products");
-const sorted = products.sort((a, b) => (b.data.date ?? "") > (a.data.date ?? "") ? 1 : -1);
+/* samostatná admin stránka – bez layoutu a bez Netlify Identity */
 ---
-<Base title="High End Room" description="Exkluzivní výběr luxusního oblečení a doplňků.">
-  <!-- HERO -->
-  <section
-    class="relative flex min-h-[calc(100vh-74px)] flex-col items-center justify-center bg-cover bg-center bg-no-repeat px-4 text-center"
-    style={`background-image:
-      linear-gradient(rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.8) 50%, rgb(0,0,0) 100%),
-      url('/image/pozadi.svg');
-    `}
-  >
-    <h1 class="text-4xl font-black tracking-tighter sm:text-5xl md:text-6xl">High End Room</h1>
-    <p class="mx-auto mt-4 max-w-2xl text-base text-gray-300 sm:text-lg">
-      Exkluzivní výběr luxusního oblečení a doplňků. Kontaktujte nás pro více informací o produktech a prodeji.
-    </p>
-    <a href="#catalog" class="mt-8 inline-block rounded-full bg-white px-8 py-3 text-lg font-bold text-black transition-transform duration-300 hover:scale-105">
-      Prohlédnout katalog
-    </a>
-  </section>
+<!doctype html>
+<html lang="cs">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Content Manager</title>
+    <meta name="robots" content="noindex" />
+  </head>
+  <body>
+    <!-- Ruční init Decapu, ať se nenačítá nic z Netlify Identity -->
+    <script>
+      window.CMS_MANUAL_INIT = true;
+    </script>
 
-  <!-- FILTRY + KATALOG -->
-  <section id="catalog" class="mx-auto max-w-7xl px-4 py-10">
-    <div class="mb-6 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-      <div>
-        <h2 class="text-2xl font-bold">Katalog</h2>
-        <p class="text-sm text-gray-400">Aktuálně {sorted.length} položek</p>
-      </div>
+    <!-- Decap CMS UI -->
+    <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
 
-      <div class="flex flex-wrap items-center gap-2 w-full sm:w-auto">
-  <FiltersDesktop />
-  <FiltersMobile />
-  <FiltersBrand />
-  <FiltersSize />
-  <FiltersPrice />
-
-  <label class="ml-2 inline-flex cursor-pointer items-center gap-2 rounded-full bg-white/5 px-4 py-2 text-sm">
-    <input id="onlyAvailable" type="checkbox" class="accent-white" />
-        Pouze skladem
-  </label>
-  <button
-  id="resetFilters"
-  class="hidden rounded-full bg-red-600 px-4 py-2 text-sm font-semibold text-white
-         backdrop-blur-md ring-1 ring-white/20 shadow-md transition-colors hover:bg-red-500"
->
-  Zrušit filtry
-</button>
-
-      </div>
-    </div>
-
-    <!-- GRID PRODUKTŮ -->
-    <div data-grid class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-  {sorted.map((entry) => (
-    <ProductCard product={{ id: entry.slug, ...entry.data }} />
-  ))}
-</div>
-  </section>
-
-  <!-- Client script (filtrace – desktop tlačítka + mobilní select) -->
-  <script type="module" src="/js/filters.js"></script>
-</Base>
+    <script>
+      (function () {
+        function initCMS() {
+          if (!window.CMS) {
+            console.error("Decap CMS script not loaded yet.");
+            return;
+          }
+          window.CMS.init({
+            // relativně k /admin -> tedy /admin/config.yml
+            configPath: "config.yml",
+          });
+        }
+        if (document.readyState === "loading") {
+          document.addEventListener("DOMContentLoaded", initCMS);
+        } else {
+          initCMS();
+        }
+      })();
+    </script>
+  </body>
+</html>

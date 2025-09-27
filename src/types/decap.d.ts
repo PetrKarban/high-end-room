@@ -8,14 +8,8 @@ declare global {
 
     // Decap CMS UI API dostupné na window
     CMS?: any;
-
-    // Netlify Identity (Git Gateway přihlášení)
-    netlifyIdentity?: {
-      on: (event: string, callback: (user?: any) => void) => void;
-      open?: () => void;
-      logout?: () => void;
-    };
   }
 }
 
 export {};
+

@@ -1,6 +1,6 @@
 backend:
   name: github
-  repo: PetrKarban/high-end-room   # přesně podle tvého repozitáře
+  repo: PetrKarban/high-end-room   # přesný název tvého repa
   branch: main
 
 site_url: https://highendroom.netlify.app
@@ -19,14 +19,15 @@ collections:
       - { name: "brand", label: "Značka", widget: "string" }
       - { name: "category", label: "Kategorie", widget: "select", options: ["obuv","obleceni","batohy","doplnky"] }
       - { name: "subcategory", label: "Podkategorie", widget: "string", required: false }
-      - { name: "sizes", label: "Velikosti", widget: "list", required: false, field: {label: "Velikost", name: "size", widget: "string"} }
+      - { name: "sizes", label: "Velikosti", widget: "list", required: false, field: { label: "Velikost", name: "size", widget: "string" } }
       - { name: "condition", label: "Stav", widget: "string", required: false }
       - { name: "price", label: "Cena", widget: "number", value_type: "int", min: 0 }
       - { name: "status", label: "Stav produktu", widget: "select", options: ["available", "sold"] }
-      - { name: "images", label: "Obrázky", widget: "list", field: {label: "Obrázek", name: "url", widget: "image"} }
+      - { name: "images", label: "Obrázky", widget: "list", field: { label: "Obrázek", name: "url", widget: "image" } }
       - { name: "tags", label: "Tagy", widget: "list", required: false }
       - { name: "date", label: "Datum", widget: "datetime", required: false }
       - { name: "body", label: "Popis", widget: "markdown", required: false }
+
 
 
 

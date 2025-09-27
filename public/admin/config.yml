@@ -1,6 +1,5 @@
 backend:
-  name: github
-  repo: PetrKarban/high-end-room   # přesný název tvého repa
+  name: git-gateway
   branch: main
 
 site_url: https://highendroom.netlify.app
@@ -27,6 +26,7 @@ collections:
       - { name: "tags", label: "Tagy", widget: "list", required: false }
       - { name: "date", label: "Datum", widget: "datetime", required: false }
       - { name: "body", label: "Popis", widget: "markdown", required: false }
+
 
 
 

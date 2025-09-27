@@ -16,13 +16,9 @@
 
     <!-- Decap CMS UI -->
     <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
-
-    <!-- Netlify Identity widget -->
-    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   </head>
   <body>
     <script>
-      // inicializace CMS
       function initCMS() {
         const cms = window.CMS;
         if (!cms) {
@@ -30,7 +26,7 @@
           return;
         }
         cms.init({
-          configPath: "config.yml", // relativně k /admin
+          configPath: "config.yml",
         });
       }
 
@@ -39,25 +35,10 @@
       } else {
         initCMS();
       }
-
-      // Auto-redirect do /admin po přihlášení přes Netlify Identity
-      if (window.netlifyIdentity) {
-        window.netlifyIdentity.on("init", function (user) {
-          if (!user) {
-            window.netlifyIdentity.on("login", function () {
-              document.location.href = "/admin/";
-            });
-          }
-        });
-
-        // pokud není nikdo přihlášen, ukaž widget ručně
-        if (!window.netlifyIdentity.currentUser()) {
-          window.netlifyIdentity.open();
-        }
-      }
     </script>
   </body>
 </html>
+
 
 
 

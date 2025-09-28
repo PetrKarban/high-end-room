@@ -9,7 +9,7 @@ sizes:
   - L
   - XL
 condition: 9/10
-price: 13500
+price: 17000
 status: available
 images:
   - /products/balenciaga-hoodie/cover.jpg

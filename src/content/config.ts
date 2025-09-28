@@ -14,7 +14,7 @@ const products = defineCollection({
     status: z.enum(["available", "sold"]).default("available"),
     images: z.array(z.string()).nonempty(),
     tags: z.array(z.string()).optional(),
-    date: z.string().optional(),
+    date: z.date().optional(),
   }),
 });
 

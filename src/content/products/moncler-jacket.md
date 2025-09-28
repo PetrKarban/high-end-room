@@ -10,6 +10,6 @@ status: "available"
 images:
   - "/products/moncler-jacket/cover.jpg"
 tags: ["puffer","moncler","jacket"]
-date: "2025-09-30"
+date: 2025-09-30
 ---
 Teplá puffer bunda Moncler.

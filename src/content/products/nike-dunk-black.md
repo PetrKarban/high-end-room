@@ -10,7 +10,7 @@ images:
   - "/products/nike-dunk-black/cover.jpg"
   - "/products/nike-dunk-black/1.jpg"
 tags: ["sneakers"]
-date: "2025-08-31"
+date: 2025-08-31
 ---
 
 Klasické sneakers Dunk v černé barvě.

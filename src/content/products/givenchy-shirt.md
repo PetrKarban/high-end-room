@@ -10,6 +10,6 @@ status: "available"
 images:
   - "/products/givenchy-shirt/cover.jpg"
 tags: ["shirt","givenchy"]
-date: "2025-09-30"
+date: 2025-09-30
 ---
 Luxusní košile/tričko Givenchy.

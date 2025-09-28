@@ -9,6 +9,6 @@ status: "available"
 images:
   - "/products/bape-sta/cover.jpg"
 tags: ["sneakers","bape"]
-date: "2025-09-30"
+date: 2025-09-30
 ---
 Ikonické tenisky Bape Sta.

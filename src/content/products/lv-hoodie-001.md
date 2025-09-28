@@ -11,7 +11,7 @@ images:
   - "/products/lv-hoodie-001/cover.jpg"
   - "/products/lv-hoodie-001/1.jpg"
 tags: ["hoodie","men","fw23"]
-date: "2025-08-31"
+date: 2025-08-31
 ---
 
 Krátký popis produktu (volitelné).

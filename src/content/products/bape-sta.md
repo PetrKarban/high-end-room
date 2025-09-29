@@ -9,7 +9,7 @@ sizes:
   - "43"
   - "44"
 condition: 9/10
-price: 8900
+price: 10000
 status: available
 images:
   - /products/bape-sta/cover.jpg

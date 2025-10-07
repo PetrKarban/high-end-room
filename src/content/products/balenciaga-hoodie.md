@@ -8,7 +8,7 @@ sizes:
   - M
   - L
   - XL
-condition: 9/10
+condition: 10/10
 price: 17000
 status: available
 images:

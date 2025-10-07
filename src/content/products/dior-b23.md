@@ -7,7 +7,7 @@ sizes:
   - "46"
   - "43"
 condition: 10/10
-price: 16000
+price: 18000
 status: available
 images:
   - /uploads/dior-b23.avif
